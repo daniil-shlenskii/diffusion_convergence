@@ -12,6 +12,8 @@ class SimpleMLP(nn.Module):
         self.backbone = nn.Sequential(
             nn.Linear(self.hidden_dim, 2 * self.hidden_dim),
             nn.GELU(),
+            nn.Linear(2 * self.hidden_dim, 2 * self.hidden_dim),
+            nn.GELU(),
             nn.Linear(2 * self.hidden_dim, d_in)
         )
 
