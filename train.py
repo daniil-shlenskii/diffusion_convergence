@@ -40,9 +40,10 @@ betas = get_beta_schedule(diff_config["T"])
 denoiser = SimpleMLP(d_in=1, T=diff_config["T"], hidden_dim=diff_config["hidden_dim"])
 ddpm = DDPM(betas, denoiser)
 
-opt = th.optim.Adam(ddpm.parameters(), lr=3e-4)
+# prepare optimizer
+opt_config = config["optimizer"]
+opt = th.optim.Adam(ddpm.parameters(), lr=float(opt_config["lr"]))
 
-device = "cuda" if th.cuda.is_available() else "cpu"
 
 # prepare trainer
 trainer_config = config["trainer"]
@@ -51,6 +52,8 @@ log_dir = Path(trainer_config["log_dir"])
 sub_dir = args.params.split("/")[-1].split(".")[0]
 log_dir = log_dir / sub_dir
 log_dir.mkdir(exist_ok=True, parents=True)
+
+device = "cuda" if th.cuda.is_available() else "cpu"
 
 trainer = Trainer(ddpm, opt, device, log_every, log_dir)
 
