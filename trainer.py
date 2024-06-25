@@ -40,6 +40,7 @@ class Trainer:
                 loss_acc = 0
 
             step += 1
+        th.save(self.ddpm.state_dict(), f"{self.result_dir}/model.pt")
 
     def _train_step(self, batch):
         self.ddpm.train()

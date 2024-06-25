@@ -1,22 +1,21 @@
 dataset:
-  batch_size: 64
+  batch_size: 256
   distance_frac: 0
   train:
-    n_samples: 20_000
+    n_samples: 100_000
     seed: 0
   test:
-    n_samples: 5_000
+    n_samples: 10_000
     seed: 1
 
 diffusion:
   T: 50
-  hidden_dim: 64
+  hidden_dim: 256
 
 optimizer:
-  lr: 1e-4
+  lr: 1e-6
 
 trainer:
   log_every: 50
   log_dir: results
-  n_iters: 20_000
-    
+  n_iters: 1_000_000
